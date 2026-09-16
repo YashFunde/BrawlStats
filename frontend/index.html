@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>BrawlStats</title>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header>
+        <h1>BrawlStats</h1>
+
+        <p>Brawl Stars Gaming Dashboard</p>
+
+        <button id="themeToggle" class="theme-toggle">
+            Light Mode
+        </button>
+    </header>
+
+
+    <!-- Dashboard Navigation -->
+    <nav class="dashboard-nav">
+        <a href="#playerData">Profile</a>
+        <a href="#playerOverview">Overview</a>
+        <a href="#analytics">Analytics</a>
+        <a href="#battles">Battles</a>
+        <a href="#activity">Activity</a>
+        <a href="#brawlers">Brawlers</a>
+    </nav>
+
+
+    <main>
+
+        <!-- Search -->
+        <section class="search-section">
+
+            <input
+                type="text"
+                id="playerTag"
+                placeholder="#PLAYER_TAG"
+            >
+
+            <button id="searchBtn">
+                Search
+            </button>
+
+        </section>
+
+
+        <!-- Player Profile -->
+        <section id="playerData" class="profile-section">
+
+            <h2>Search for a player</h2>
+
+            <p>
+                Enter a Brawl Stars player tag above.
+            </p>
+
+        </section>
+
+        <p id="lastUpdated" class="last-updated"></p>
+
+
+        <!-- Player Overview -->
+        <section id="playerOverview" class="overview-section">
+
+            <h2>Player Overview</h2>
+
+            <div class="overview-grid">
+
+                <div class="overview-card">
+                    <span>Total Brawlers</span>
+                    <strong id="totalBrawlers">0</strong>
+                </div>
+
+                <div class="overview-card">
+                    <span>Maxed Brawlers</span>
+                    <strong id="maxedBrawlers">0</strong>
+                </div>
+
+                <div class="overview-card">
+                    <span>Average Trophies</span>
+                    <strong id="averageTrophies">0</strong>
+                </div>
+
+                <div class="overview-card">
+                    <span>Highest Brawler</span>
+                    <strong id="highestBrawler">-</strong>
+                </div>
+
+                <div class="overview-card">
+                    <span>3v3 Victories</span>
+                    <strong id="threeVsThree">0</strong>
+                </div>
+
+                <div class="overview-card">
+                    <span>Solo Victories</span>
+                    <strong id="soloVictories">0</strong>
+                </div>
+
+                <div class="overview-card">
+                    <span>Duo Victories</span>
+                    <strong id="duoVictories">0</strong>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Brawler Analytics -->
+        <section id="analytics" class="analytics-section">
+
+            <h2>Brawler Analytics</h2>
+
+            <div class="analytics-grid">
+
+                <div class="analytics-card">
+                    <span>Total Brawler Trophies</span>
+                    <strong id="totalBrawlerTrophies">0</strong>
+                </div>
+
+                <div class="analytics-card">
+                    <span>Average Brawler Trophies</span>
+                    <strong id="analyticsAverageTrophies">0</strong>
+                </div>
+
+                <div class="analytics-card">
+                    <span>Highest Brawler</span>
+                    <strong id="analyticsHighestBrawler">-</strong>
+                </div>
+
+                <div class="analytics-card">
+                    <span>Power 11 Brawlers</span>
+                    <strong id="analyticsPower11">0</strong>
+                </div>
+
+            </div>
+
+
+            <!-- Top Brawlers Chart -->
+            <div class="chart-container">
+
+                <h3>Top 10 Brawlers by Trophies</h3>
+
+                <canvas id="topBrawlersChart"></canvas>
+
+            </div>
+
+
+            <!-- Power Level Chart -->
+            <div class="chart-container">
+
+                <h3>Power Level Distribution</h3>
+
+                <canvas id="powerLevelChart"></canvas>
+
+            </div>
+
+
+            <!-- Trophy Distribution Chart -->
+            <div class="chart-container">
+
+                <h3>Trophy Distribution</h3>
+
+                <canvas id="trophyDistributionChart"></canvas>
+
+            </div>
+
+        </section>
+
+
+        <!-- Recent Battles -->
+        <section id="battles" class="battlelog-section">
+
+            <h2>⚔️ Recent Battles</h2>
+
+            <div class="battle-summary">
+
+                <div class="battle-summary-card">
+                    <span>Total Battles</span>
+                    <strong id="totalBattles">0</strong>
+                </div>
+
+                <div class="battle-summary-card">
+                    <span>Victories</span>
+                    <strong id="battleVictories">0</strong>
+                </div>
+
+                <div class="battle-summary-card">
+                    <span>Defeats</span>
+                    <strong id="battleDefeats">0</strong>
+                </div>
+
+                <div class="battle-summary-card">
+                    <span>Win Rate</span>
+                    <strong id="battleWinRate">0%</strong>
+                </div>
+
+            </div>
+
+
+            <div id="battleLog" class="battlelog-list">
+
+                <p class="no-results">
+                    Search for a player to see recent battles.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- Brawl Activity -->
+        <section id="activity" class="activity-section">
+
+            <h2>Brawl Activity</h2>
+
+            <p class="activity-subtitle">
+                Your battle activity over time
+            </p>
+
+            <div
+                id="activityHeatmap"
+                class="activity-heatmap"
+            ></div>
+
+        </section>
+
+
+        <!-- Brawler Collection -->
+        <section id="brawlers" class="brawlers-section">
+
+            <h2>Brawler Collection</h2>
+
+            <!-- Brawler Controls -->
+            <div class="brawler-controls">
+
+                <input
+                    type="text"
+                    id="brawlerSearch"
+                    placeholder="Search brawler..."
+                >
+
+
+                <select id="powerFilter">
+                    <option value="all">All Power Levels</option>
+                    <option value="11">Power 11</option>
+                    <option value="10">Power 10</option>
+                    <option value="9">Power 9</option>
+                    <option value="8">Power 8</option>
+                </select>
+
+
+                <select id="sortBrawlers">
+                    <option value="default">Sort By</option>
+                    <option value="trophies">Trophies</option>
+                    <option value="highestTrophies">
+                        Highest Trophies
+                    </option>
+                    <option value="rank">Rank</option>
+                    <option value="power">Power</option>
+                </select>
+
+
+                <button id="resetBrawlers">
+                    Reset
+                </button>
+
+
+                <button id="sortDirection">
+                    Descending
+                </button>
+
+            </div>
+
+
+            <p id="brawlerCount" class="brawler-count">
+                Showing 0 brawlers
+            </p>
+
+
+            <div
+                id="brawlerList"
+                class="brawler-grid"
+            ></div>
+
+        </section>
+
+    </main>
+
+
+    <!-- Libraries & JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="js/app.js"></script>
+
+</body>
+
+</html>
